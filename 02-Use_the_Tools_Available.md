@@ -16,24 +16,25 @@ Source control is an absolute necessity for any software development project. If
 
 Use an industry standard widely accepted build tool. This prevents you from reinventing the wheel whenever you discover / link to a new library / package your product / etc. Examples include:
 
+ * [Autotools](https://autotools.io) - The traditional GNU build system.
  * [CMake](http://www.cmake.org/)
    * Consider: https://github.com/sakra/cotire/ for build performance
    * Consider: https://github.com/toeb/cmakepp for enhanced usability
    * Utilize: https://cmake.org/cmake/help/v3.6/command/target_compile_features.html for C++ standard flags
    * Consider: https://github.com/cheshirekow/cmake_format for automatic formatting of your CMakeLists.txt
-   * See the [Further Reading](10-Further_Reading.md) section for CMake specific best practices
+   * See the [Further Reading](11-Further_Reading.md) section for CMake specific best practices
    * `cmake --build` provides a common interface for compiling your project regardless of platform
  * [Waf](https://waf.io/)
  * [FASTBuild](http://www.fastbuild.org/)
- * [Ninja](https://ninja-build.org/) - can greatly improve the incremental build time of your larger projects. Can be used as a target for CMake.
- * [Bazel](http://bazel.io/) - Fast incremental builds using network artefact caching and remote execution
- * [Buck](http://buckbuild.com/) - Similar to Bazel, with very good support for iOS and Andoid
+ * [Ninja](https://ninja-build.org/) - Can greatly improve the incremental build time of your larger projects. Can be used as a target for CMake.
+ * [Bazel](http://bazel.io/) - Fast incremental builds using network artefact caching and remote execution.
+ * [Buck](http://buckbuild.com/) - Similar to Bazel, with very good support for iOS and Andoid.
  * [gyp](https://chromium.googlesource.com/external/gyp/) - Google's build tool for chromium.
  * [maiken](https://github.com/Dekken/maiken) - Crossplatform build tool with Maven-esque configuration style.
  * [Qt Build Suite](http://doc.qt.io/qbs/) - Crossplatform build tool From Qt.
  * [meson](http://mesonbuild.com/index.html) - Open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible.
  * [premake](https://premake.github.io/) 
-
+ * [xmake](https://xmake.io) - A cross-platform build utility based on Lua. Modern C/C++ build tools, Support multi-language hybrid compilation
 
 Remember, it's not just a build tool, it's also a programming language. Try to maintain good clean build scripts and follow the recommended practices for the tool you are using.
 
@@ -66,7 +67,7 @@ Continuous Integration (CI) tools automatically build the source code as changes
    * Java Application Server is required
    * supports Windows, OS X, and Linux
    * extendable with a lot of plugins
- * [TeamCity](https://www.jetbrains.com/teamcity) 
+ * [TeamCity](https://www.jetbrains.com/teamcity)
    * has a free option for open source projects
  * [Decent CI](https://github.com/lefticus/decent_ci)
    * simple ad-hoc continuous integration that posts results to GitHub
@@ -88,7 +89,7 @@ If you have an open source, publicly-hosted project on GitHub:
  * go enable Travis Ci and AppVeyor integration right now. We'll wait for you to come back. For a simple example of how to enable it for your C++ CMake-based application, see here: https://github.com/ChaiScript/ChaiScript/blob/master/.travis.yml
  * enable one of the coverage tools listed below (Codecov or Coveralls)
  * enable [Coverity Scan](https://scan.coverity.com)
-  
+
 These tools are all free and relatively easy to set up. Once they are set up you are getting continuous building, testing, analysis and reporting of your project. For free.
 
 
@@ -121,7 +122,7 @@ You should use as many compilers as you can for your platform(s). Each compiler 
  * `-Wdouble-promotion` (GCC >= 4.6, Clang >= 3.8) warn if `float` is implicit promoted to `double`
  * `-Wformat=2` warn on security issues around functions that format output (ie `printf`)
  * `-Wlifetime` (only special branch of Clang currently) shows object lifetime issues
- 
+
 Consider using `-Weverything` and disabling the few warnings you need to on Clang
 
 
@@ -164,7 +165,7 @@ Not recommended
 
 Start with very strict warning settings from the beginning. Trying to raise the warning level after the project is underway can be painful.
 
-Consider using the *treat warnings as errors* setting. `/Wx` with MSVC, `-Werror` with GCC / Clang
+Consider using the *treat warnings as errors* setting. `/WX` with MSVC, `-Werror` with GCC / Clang
 
 ## LLVM-based tools
 
@@ -187,7 +188,7 @@ CMake now also comes with built-in support for calling `clang-tidy` during [norm
 
 The best bet is the static analyzer that you can run as part of your automated build system. Cppcheck and clang meet that requirement for free options.
 
-### Coverity Scan 
+### Coverity Scan
 
 [Coverity](https://scan.coverity.com/) has a free (for open source) static analysis toolkit that can work on every commit in integration with [Travis CI](http://travis-ci.org) and [AppVeyor](http://www.appveyor.com/).
 
@@ -201,16 +202,16 @@ The best bet is the static analyzer that you can run as part of your automated b
 Notes:
 
  * For correct work it requires well formed path for headers, so before usage don't forget to pass: `--check-config`.
- * Finding unused headers does not work with `-j` more than 1. 
+ * Finding unused headers does not work with `-j` more than 1.
  * Remember to add `--force` for code with a lot number of `#ifdef` if you need check all of them.
- 
+
 ### cppclean
 
 [cppclean](https://github.com/myint/cppclean) - Open source static analyzer focused on finding problems in C++ source that slow development of large code bases.
 
- 
+
 ### CppDepend
- 
+
 [CppDepend](https://www.cppdepend.com/) Simplifies managing a complex C/C++ code base by analyzing and visualizing code dependencies, by defining design rules, by doing impact analysis, and comparing different versions of the code. It's free for OSS contributors.
 
 ### Clang's Static Analyzer
@@ -237,7 +238,7 @@ Can be enabled with the `/analyze` [command line option](http://msdn.microsoft.c
 
 Both of these tools from [JetBrains](https://www.jetbrains.com/cpp/) offer some level of static analysis and automated fixes for common things that can be done better. They have options available for free licenses for open source project leaders.
 
-### Cevelop 
+### Cevelop
 
 The Eclipse based [Cevelop](https://www.cevelop.com/) IDE has various static analysis and refactoring / code fix tools available. For example, you can replace macros with C++ `constexprs`, refactor namespaces (extract/inline `using`, qualify name), and refactor your code to C++11's uniform initialization syntax. Cevelop is free to use.
 
@@ -267,7 +268,7 @@ A coverage analysis tool shall be run when tests are executed to make sure the e
    * integrates with Travis CI and AppVeyor
    * free for open source projects
  * [LCOV](http://ltp.sourceforge.net/coverage/lcov.php)
-   * very configurable 
+   * very configurable
  * [Gcovr](http://gcovr.com/)
  * [kcov](http://simonkagstrom.github.io/kcov/index.html)
    * integrates with codecov and coveralls
@@ -275,13 +276,23 @@ A coverage analysis tool shall be run when tests are executed to make sure the e
  * [OpenCppCoverage](https://github.com/OpenCppCoverage/OpenCppCoverage) - open source coverage reporting tool for Windows.
 
 
-### Valgrind
+### Heap profiling
 
-[Valgrind](http://www.valgrind.org/) is a runtime code analyzer that can detect memory leaks, race conditions, and other associated problems. It is supported on various Unix platforms.
+ * [Valgrind](http://www.valgrind.org/)
+   * Valgrind is a runtime code analyzer that can detect memory leaks, race conditions, and other associated problems. It is supported on various Unix platforms.
+ * [Heaptrack](https://github.com/KDE/heaptrack)
+   * A profiler created by a Valgrind's Massif developper. Quite similar to Massif with pros and cons over it, way more intuitive though.
+ * [Dr Memory](http://www.drmemory.org)
+ * [Memoro](https://epfl-vlsc.github.io/memoro/) - A detailed heap profiler.
 
-### Dr Memory
+### CPU profiling
 
-Similar to Valgrind. http://www.drmemory.org
+ * [Hotspot](https://github.com/KDAB/hotspot) - An intuitive front-end to visualize datas produced by the [perf](https://perf.wiki.kernel.org) CPU profiler.
+ * [uftrace](https://github.com/namhyung/uftrace) - Can be used to generating function call graphs of a program execution.
+
+### Reverse engineering tools
+
+ * [Cutter](https://cutter.re/) - A front-end for [Radare2](https://www.radare.org/n/radare2.html). It provides tools such as decompiler, disassembly, graph visualizer, hex editor.
 
 ### GCC / Clang Sanitizers
 
@@ -296,13 +307,19 @@ Be aware of the sanitizer options available, including runtime options. https://
 
 ### Fuzzy Analyzers
 
-If your project accepts user defined input, considering running a fuzzy input tester. 
+If your project accepts user defined input, considering running a fuzzy input tester.
 
 Both of these tools use coverage reporting to find new code execution paths and try to breed novel inputs for your code. They can find crashes, hangs, and inputs you didn't know were considered valid.
 
  * [american fuzzy lop](http://lcamtuf.coredump.cx/afl/)
  * [LibFuzzer](http://llvm.org/docs/LibFuzzer.html)
  * [KLEE](http://klee.github.io/) - Can be used to fuzz individual functions
+
+#### Continuous Fuzzing
+
+Continuous fuzzing tools exist to run fuzz tests for you with each commit.
+
+ * [Fuzzit](https://fuzzit.dev/)
 
 ### Mutation Testers
 
@@ -323,7 +340,7 @@ MSVC's [Control Flow Guard](https://msdn.microsoft.com/en-us/library/windows/des
 
 ### Heap Profiling
 
- * [https://epfl-vlsc.github.io/memoro/](Memoro) - A detailed heap profiler 
+ * [Memoro](https://epfl-vlsc.github.io/memoro/) - A detailed heap profiler 
 
 ## Ignoring Warnings
 
@@ -351,9 +368,9 @@ Don't forget to make sure that your error handling is being tested and works pro
 
 ## Debugging
 
-### uftrace
+### GDB
 
-[uftrace](https://github.com/namhyung/uftrace) can be used to generating function call graphs of a program execution
+[GDB](https://www.gnu.org/software/gdb/) - The GNU debugger, powerful and widely used. Most IDEs implement an interface to use it.
 
 ### rr
 
@@ -373,7 +390,7 @@ Don't forget to make sure that your error handling is being tested and works pro
 
 [ABI Compliance Checker](http://ispras.linuxbase.org/index.php/ABI_compliance_checker) (ACC) can analyze two library versions and generates a detailed compatibility report regarding API and C++ ABI changes. This can help a library developer spot unintentional breaking changes to ensure backward compatibility.
 
-### CNCC 
+### CNCC
 
 [Customizable Naming Convention Checker](https://github.com/mapbox/cncc) can report on identifiers in your code that do not follow certain naming conventions.
 
@@ -381,10 +398,18 @@ Don't forget to make sure that your error handling is being tested and works pro
 
 [ClangFormat](http://clang.llvm.org/docs/ClangFormat.html) can check and correct code formatting to match organizational conventions automatically. [Multipart series](https://engineering.mongodb.com/post/succeeding-with-clangformat-part-1-pitfalls-and-planning/) on utilizing clang-format.
 
-### SourceMeter 
+### SourceMeter
 
 [SourceMeter](https://www.sourcemeter.com/) offers a free version which provides many different metrics for your code and can also call into cppcheck.
 
 ### Bloaty McBloatface
 
 [Bloaty McBloatface](https://github.com/google/bloaty) is a binary size analyzer/profiler for unix-like platforms
+
+### pahole
+
+[pahole](https://linux.die.net/man/1/pahole) generates data on holes in the packing of data structures and classes in compiled code. It can also the size of structures and how they fit within the system's cache lines.
+
+### BinSkim 
+
+[BinSkim](https://github.com/Microsoft/binskim) is a binary static analysis tool that provides security and correctness results for Windows Portable Executable and *nix ELF binary formats 
